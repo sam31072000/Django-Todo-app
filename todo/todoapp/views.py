@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 import datetime
 from .models import todolist
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -16,4 +17,5 @@ def index(request):
 def deleteTask(request,myid):
     itemToDelete = todolist.objects.get(id=myid)
     itemToDelete.delete()
+    messages.success(request,"Congrats..You have completed your task!!")
     return HttpResponseRedirect('/todo/')
