@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 import datetime
 from .models import todolist
 from django.contrib import messages
+from .formm import too
 
 # Create your views here.
 def index(request):
@@ -12,8 +13,10 @@ def index(request):
         dte = f"{datetime.datetime.now()}"[:20]
         todo = todolist(task = task,desc = desc , date = dte)
         todo.save()
+        return HttpResponseRedirect('/todo/')
     a = todolist.objects.all()
-    return render(request,"index.html",{"todoitems":a})
+    fm = too()
+    return render(request,"index.html",{"todoitems":a,"form":fm})
 def deleteTask(request,myid):
     itemToDelete = todolist.objects.get(id=myid)
     itemToDelete.delete()
